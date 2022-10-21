@@ -52,7 +52,7 @@ export default function Tabela(props: Tabelaprops){
 
     return (
      <table className="w-full rounded-xl overflow-hidden">
-      <thead className="bg-indigo-200 ">
+      <thead className="bg-neutral-200">
       {renderizarCabecalho()}
       </thead>
       <tbody className="">

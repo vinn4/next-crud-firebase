@@ -1,34 +1,50 @@
-import Cliente from "../components/core/Cliente"
 import Layout from "../components/Layout"
 import Tabela from "../components/Tabela"
 import Botao from "../components/Botao"
+import Formulario from "../components/Formulario"
+import useClientes from "../hooks/useClientes"
 
 export default function Home() {
-  const clientes = [
-    new Cliente('Vinicius',28,'1'),
-    new Cliente('Julia',22,'2'),
-    new Cliente('Bruno',20,'3'),
-    new Cliente('Roberto',25,'4')
-  ]
-  function clientesSelecionados(cliente: Cliente){
-   console.log(cliente.nome)
-  }
-  function clientesExcluido(cliente: Cliente){
-    console.log(cliente.nome)
-  }
+
+const {
+  tabeleVisivel,
+  exibirTabela,
+  clientes,
+  cliente,
+  clientesExcluido,
+  novoCliente,
+  clientesSelecionados,
+  salvarCliente} = useClientes()
+
+
+
 
   return (
     <div className={`
     flex justify-center items-center h-screen
-    bg-gradient-to-r from-slate-500 to-purple-200
+    bg-gradient-to-l from-slate-500 to-slate-900
     `}>  
     <Layout titulo="Cadastro simples">
-      <div className="flex justify-start">
-      <Botao cor="gray" className="mb-4">Novo cliente</Botao>
-      </div>      
-        <Tabela clientes={clientes}
-        clientesSelecionados ={clientesSelecionados}
-         clientesExcluido={clientesExcluido}></Tabela>
+      {tabeleVisivel ? (
+        <>
+        <div className="flex justify-start">
+        <Botao onClick={novoCliente} className="mb-4 bg-purple-500"
+        >
+          Novo cliente</Botao>
+        </div>      
+          <Tabela clientes={clientes}
+          clientesSelecionados ={clientesSelecionados}
+           clientesExcluido={clientesExcluido}></Tabela>
+           </>
+      ):(
+          <Formulario
+           cliente={cliente}
+           clienteMudou={salvarCliente}
+            cancelado={()=> exibirTabela()}
+            ></Formulario>
+      )}
+      
+         
     </Layout>
     
     </div>
